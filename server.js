@@ -32,7 +32,6 @@ app.post("/setcolor", (req, res) => {
 });
 app.get("/getcolor", (req, res) => {
     res.send(savedColor);
-    res.end();
 });
 app.listen(port, () => {
     console.log("Server on port " + port);
