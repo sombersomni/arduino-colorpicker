@@ -35,5 +35,5 @@ app.get("/getcolor", (req, res) => {
     res.end();
 });
 app.listen(port, () => {
-    console.log("Server on port " + PORT);
+    console.log("Server on port " + port;
 })
