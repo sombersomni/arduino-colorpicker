@@ -1,7 +1,7 @@
 {
   "name": "home_server",
   "version": "1.0.0",
-  "description": "\"home server for video feed\"",
+  "description": "\"color picker using arduino and nodemcu\"",
   "main": "index.js",
   "scripts": {
     "test": "echo \"hi\""
@@ -9,6 +9,7 @@
   "keywords": [
     "server"
   ],
+  "repository": "https://github.com/somberSomni/arduino-colorpicker.git",
   "author": "SomberSomni",
   "license": "ISC",
   "dependencies": {
