@@ -2,7 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 
-const PORT = 80;
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
 let savedColor = '255,0,0'; //start red
 
 function parseColor(color) {
@@ -31,6 +34,6 @@ app.get("/getcolor", (req, res) => {
     res.send(savedColor);
     res.end();
 });
-app.listen(PORT, () => {
+app.listen(port, () => {
     console.log("Server on port " + PORT);
 })
