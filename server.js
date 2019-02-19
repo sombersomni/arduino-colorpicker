@@ -43,6 +43,7 @@ app.post("/setcolor", (req, res) => {
 });
 app.get("/getcolor", (req, res) => {
     res.set("Last-Modified", lastChanged);
+    res.set("Content-Type", 'text/plain');
     res.send(savedColor);
 });
 app.listen(port, () => {
