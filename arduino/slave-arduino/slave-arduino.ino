@@ -1,7 +1,8 @@
 #include <Wire.h>
-const int bluePin = 9;
-const int redPin = 10;
-const int greenPin = 11;
+const int redPin = 9;
+const int greenPin = 10;
+const int bluePin = 11;
+const int[3] colorPins= {redPin, greenPin, bluePin};
 void setup() {
   // put your setup code here, to run once:
   Wire.begin(8);
@@ -20,10 +21,15 @@ void loop() {
 }
 
 void changeColor(int howMany) {
-  char arr[6];
+  int i = 0;
   while (Wire.available() > 0) {
     int n = Wire.read();
+    Serial.print("at pin : ");
+    Serial.println(colorPins[i]);
+    Serial.print("set color to : ");
     Serial.println(n);
+    analogWrite(colorPins[i], n);
+    i++;
   }
   Serial.println();
 }

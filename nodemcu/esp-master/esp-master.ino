@@ -7,10 +7,11 @@
 
 #include <WiFiClient.h>
 #include <Wire.h>
-#include <cstdlib>
-#include <string>
 
 ESP8266WiFiMulti WiFiMulti;
+//starting values
+String ssid = "TOUTSUITE";
+String password = "STEAKANDEGGS";
 String url = "http://nameless-fortress-94924.herokuapp.com/getcolor";
 String prevPayload = "";
 void setup() {
@@ -28,7 +29,7 @@ void setup() {
   }
 
   WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP("2WIRE744", "1378814274");
+  WiFiMulti.addAP(ssid, password);
 
 }
 
@@ -60,11 +61,15 @@ void loop() {
             prevPayload = payload;
             //payload.c_str()
             Serial.println(payload);
+            //breaks string int array of numbers
+            int colors[3];
+            getColors(payload, colors);
             //sends message
             Wire.beginTransmission(8);
-            Wire.write(255);
-            Wire.write(0);
-            Wire.write(0);
+            //send each number seperately
+            Wire.write(colors[0]);
+            Wire.write(colors[1]);
+            Wire.write(colors[2);  
             Wire.endTransmission();
           }
         }
@@ -79,4 +84,22 @@ void loop() {
   }
 
   delay(10000);
+}
+
+void getColors (String str, int* colors, char sep = ',') {
+  String colorString;
+  uint8_t prevPos = 0;
+  unit8_t pos = 0;
+  short int i = 0;
+  while(pos != -1) {
+    //find position of all commas
+    prevPos = pos;
+    pos = str.indexOf(sep, pos == 0 ? 0 : pos + 1);
+    prevPos += prevPos == 0 ? 0 : 1;
+    colorString = str.substring(prevPos, i == 2 ? str.length() : pos);
+    Serial.print("getColor running : ");
+    Serial.println(colorString);
+    colors[i] = colorString.toInt();
+    i++;
+  }
 }
