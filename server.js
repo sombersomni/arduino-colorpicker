@@ -18,14 +18,37 @@ function setTime(time) {
     months[date.getMonth()] + ' ' + date.getFullYear() + ' ' + 
     clock.slice(0, clock.length - 3) + ' GMT';
 }
+function getNumber (n) {
+    switch(n) {
+        case 'a' :
+            return 10;
+        case 'b' :
+            return 11;
+        case 'c' :
+            return 12;
+        case 'd' :
+            return 13;
+        case 'e' :
+            return 14;
+        case 'f' :
+            return 15;
+        default:
+            return parseInt(n);
+    }
+}
 function parseColor(color) {
-    const noHash = color.slice(1, color.length -1);
+    const noHash = color.slice(1, color.length);
+    console.log(color);
+    console.log(noHash);
     let newColor = '';
     if (noHash.length == 6) {
         for (let i = 0; i < 6; i+=2) {
-            let eachColor = noHash.slice(i, i + 2);
-            eachColor += i != 4 ? ',' : '';
-            newColor += eachColor;
+            let digit1 = getNumber(noHash.charAt(i));
+            let digit2 = getNumber(noHash.charAt(i + 1));
+            const product = (digit1 * 8) + digit2;
+            newColor += product.toString();
+            newColor += i != 4 ? ',' : '';
+            console.log(newColor);
         }
     }
     return newColor;
@@ -44,7 +67,9 @@ app.post("/setcolor", (req, res) => {
 app.get("/getcolor", (req, res) => {
     res.set("Last-Modified", lastChanged);
     res.set("Content-Type", 'text/plain');
+    console.log(savedColor);
     res.send(savedColor);
+    res.end();
 });
 app.listen(port, () => {
     console.log("Server on port " + port);

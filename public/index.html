@@ -23,7 +23,8 @@
                 referrer: "no-referrer", // no-referrer, *client
                 body: hexVal, // body data type must match "Content-Type" header
             })
-            .then(response => { console.log(response) });
+            .then(response => response.text() )
+            .then(color => { console.log(color) });
         }
     </script>
 </html>
