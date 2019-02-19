@@ -22,8 +22,8 @@ void loop() {
 void changeColor(int howMany) {
   char arr[6];
   while (Wire.available() > 0) {
-    char c = Wire.read();
-    Serial.print(c);
+    int n = Wire.read();
+    Serial.println(n);
   }
   Serial.println();
 }

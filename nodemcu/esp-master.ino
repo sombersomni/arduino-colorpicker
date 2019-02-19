@@ -12,6 +12,7 @@
 
 ESP8266WiFiMulti WiFiMulti;
 String url = "http://nameless-fortress-94924.herokuapp.com/getcolor";
+String prevPayload = "";
 void setup() {
 
   // Serial.setDebugOutput(true);
@@ -55,11 +56,17 @@ void loop() {
         // file found at server
         if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
           String payload = http.getString();
-          Serial.println(payload);
-          //sends message
-          Wire.beginTransmission(8);
-          Wire.write(payload.c_str());
-          Wire.endTransmission();
+          if (payload != prevPayload) {
+            prevPayload = payload;
+            //payload.c_str()
+            Serial.println(payload);
+            //sends message
+            Wire.beginTransmission(8);
+            Wire.write(255);
+            Wire.write(0);
+            Wire.write(0);
+            Wire.endTransmission();
+          }
         }
       } else {
         Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
