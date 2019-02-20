@@ -83,7 +83,7 @@ void loop() {
     }
   }
 
-  delay(10000);
+  delay(5000);
 }
 
 void getColors (String str, int* colors, char sep = ',') {

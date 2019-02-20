@@ -4,7 +4,8 @@
   "description": "\"color picker using arduino and nodemcu\"",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"hi\""
+    "test": "echo \"hi\"",
+    "start" : "node server.js"
   },
   "keywords": [
     "server"

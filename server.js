@@ -37,18 +37,17 @@ function getNumber (n) {
     }
 }
 function parseColor(color) {
+    //takes out the hash tag of hexadecimal
     const noHash = color.slice(1, color.length);
-    console.log(color);
-    console.log(noHash);
     let newColor = '';
     if (noHash.length == 6) {
+        //loops through set of each hexadecimal and turns it into decimals
         for (let i = 0; i < 6; i+=2) {
             let digit1 = getNumber(noHash.charAt(i));
             let digit2 = getNumber(noHash.charAt(i + 1));
             const product = (digit1 * 8) + digit2;
             newColor += product.toString();
             newColor += i != 4 ? ',' : '';
-            console.log(newColor);
         }
     }
     return newColor;
@@ -61,7 +60,7 @@ app.get("/", (req, res) => {
 app.post("/setcolor", (req, res) => {
     lastChanged = setTime(Date.now());
     savedColor = parseColor(req.body);
-    res.send(`Set color to rgb(${savedColor})`);
+    res.send(`You set color to rgb(${savedColor})`);
     res.end();
 });
 app.get("/getcolor", (req, res) => {

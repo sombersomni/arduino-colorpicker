@@ -1,30 +1,100 @@
 <!DOCTYPE html>
-    <head></head>
+    <head>
+        <!-- google fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display|Work+Sans" rel="stylesheet"> 
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/brands.css" integrity="sha384-BKw0P+CQz9xmby+uplDwp82Py8x1xtYPK3ORn/ZSoe6Dk3ETP59WCDnX+fI1XCKK" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous">
+    </head>
+    <style>
+        
+        h1, h2, h3 {
+            font-family: 'Major Mono Display', monospace;
+            font-size: 3em;
+            background: rgb(30, 94, 233);
+            color: white;
+            padding: 25px;
+        }
+        body {
+            background: url("img/watercolorbg.jpg");
+            background-size: cover;
+        }
+        #container {
+            font-family: 'Work Sans', sans-serif;
+            position: absolute;
+            width: 700px;
+            height: auto;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            background: white;
+            -ms-transform: translate(-50%, -50%);
+        }
+        #container div {
+            display : inline-block;
+            width: 300px;
+            height: auto;
+        }
+        #message {
+            text-align: center;
+            background: grey;
+            height: 100px;
+            width: 300px;
+        }
+        #info {
+            background: white;
+        }
+        i {
+            font-size: 2em;
+        }
+        a { 
+            color: grey;
+            transition: color 1s;
+        }
+        a:hover {
+            color:  rgb(30, 94, 233);
+        }
+    </style>
     <body>
-        <div>
-            <input type="color" >
+        <div id="container">
+            <div><h1>Arduino LED Changer</h1></div>
+            
+            <div id="info">
+                <p>You can view this project on <a href="https://github.com/somberSomni/arduino-colorpicker"><i class="fab fa-github"></i></a></p>
+                <p> change LED connected to Arduion using color picker below</p>
+                <label>select a color : </label>
+                <input type="color" >
+                <div id="message"></div>
+            </div>
         </div>
     </body>
     <script>
-        const colorPicker = document.querySelector("input[type='color']");
-        colorPicker.onchange = function (e) {
-            const hexVal = e.target.value;
-            const url = '/setcolor';
-            fetch(url, {
-                method: "POST", // *GET, POST, PUT, DELETE, etc.
-                mode: "cors", // no-cors, cors, *same-origin
-                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: "same-origin", // include, *same-origin, omit
-                headers: {
-                    "Content-Type": "text/plain",
-                    // "Content-Type": "application/x-www-form-urlencoded",
-                },
-                redirect: "follow", // manual, *follow, error
-                referrer: "no-referrer", // no-referrer, *client
-                body: hexVal, // body data type must match "Content-Type" header
-            })
-            .then(response => response.text() )
-            .then(color => { console.log(color) });
+        window.onload = function () {
+            const colorPicker = document.querySelector("input[type='color']");
+            colorPicker.onchange = function (e) {
+                const hexVal = e.target.value;
+                const url = '/setcolor';
+                fetch(url, {
+                    method: "POST", 
+                    mode: "cors", 
+                    cache: "no-cache",
+                    credentials: "same-origin", 
+                    headers: {
+                        "Content-Type": "text/plain"
+                    },
+                    redirect: "follow", 
+                    referrer: "no-referrer", 
+                    body: hexVal
+                })
+                .then(response => response.text() )
+                .then(message => { 
+                    //creates message element from server response
+                    console.log(message);
+                    let messageEl = document.getElementById("message");
+                    messageEl.innerHTML = message;
+                }).catch(err => { console.log(err); })
+            }
         }
+       
     </script>
 </html>
