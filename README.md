@@ -1,7 +1,7 @@
 # arduino-colorpicker
 Uses a nodemcu and arduino to change the color of a rgb LED from a website
 
-##Requirments
+## Requirments
 * esp8266 nodemcu
 * arduino microcontroller
 * a rgb led which can control all three color channels
