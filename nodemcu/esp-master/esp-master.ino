@@ -10,9 +10,9 @@
 
 ESP8266WiFiMulti WiFiMulti;
 //starting values
-String ssid = "TOUTSUITE";
-String password = "STEAKANDEGGS";
-String url = "http://nameless-fortress-94924.herokuapp.com/getcolor";
+String ssid = "SSID"; //replace with your password
+String password = "PASSWORD"; //replace with your url
+String url = "http://example.com/getcolor"; //use an heroku app to test out and use endpoint getcolor for your url
 String prevPayload = "";
 void setup() {
 
