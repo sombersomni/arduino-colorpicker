@@ -4,11 +4,16 @@
   "description": "\"color picker using arduino and nodemcu\"",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"hi\"",
-    "start" : "node server.js"
+    "start": "node server.js"
   },
   "keywords": [
-    "server"
+    "arduino",
+    "nodemcu",
+    "esp8266",
+    "color-picker",
+    "led",
+    "simple",
+    "microcontroller"
   ],
   "repository": "https://github.com/somberSomni/arduino-colorpicker.git",
   "author": "SomberSomni",
