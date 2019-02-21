@@ -6,7 +6,9 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous">
     </head>
     <style>
-        
+        h1 {
+            margin-left: 25px;
+        }
         h1, h2, h3 {
             font-family: 'Major Mono Display', monospace;
             font-size: 3em;
@@ -21,7 +23,7 @@
         #container {
             font-family: 'Work Sans', sans-serif;
             position: absolute;
-            width: 700px;
+            width: 750px;
             height: auto;
             left: 50%;
             top: 50%;
@@ -35,11 +37,18 @@
             width: 300px;
             height: auto;
         }
+        #container > div:first-child {
+            display : inline-block;
+            width: 350px;
+            height: auto;
+        }
         #message {
             text-align: center;
             background: grey;
+            transition: background-color 2s;
             height: 100px;
-            width: 300px;
+            padding: 10px;
+            margin-top: 10px;
         }
         #info {
             background: white;
@@ -54,6 +63,7 @@
         }
         a:hover {
             color:  rgb(30, 94, 233);
+            cursor: pointer;
         }
     </style>
     <body>
@@ -92,6 +102,7 @@
                     //creates message element from server response
                     console.log(message);
                     let messageEl = document.getElementById("message");
+                    messageEl.style.backgroundColor = hexVal;
                     messageEl.innerHTML = message;
                 }).catch(err => { console.log(err); })
             }
