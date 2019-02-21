@@ -10,10 +10,10 @@
 
 ESP8266WiFiMulti WiFiMulti;
 //starting values
-String ssid = "SSID"; //replace with your password
-String password = "PASSWORD"; //replace with your url
-String url = "http://example.com/getcolor"; //use an heroku app to test out and use endpoint getcolor for your url
+String url = "http://still-sierra-29382.herokuapp.com/getcolor"; //use an heroku app to test out and use endpoint getcolor for your url
 String prevPayload = "";
+
+void getColors (String str, int* colors, char sep);
 void setup() {
 
   // Serial.setDebugOutput(true);
@@ -22,14 +22,12 @@ void setup() {
   Serial.begin(9600);
   Serial.println();
 
-  for (uint8_t t = 4; t > 0; t--) {
-    Serial.printf("[SETUP] WAIT %d...\n", t);
-    Serial.flush();
-    delay(1000);
-  }
+  Serial.println("Please Wait");
+  delay(5000);
 
   WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP(ssid, password);
+  //Use your own SSID and PASSWORD
+  WiFiMulti.addAP("SSID", "PASSWORD"); 
 
 }
 
@@ -41,18 +39,20 @@ void loop() {
 
     HTTPClient http;
 
-    Serial.print("[HTTP] begin...\n");
+    Serial.print("Starting client...\n");
     Serial.println(WiFi.localIP());
     if (http.begin(client, url)) {  // HTTP
 
 
-      Serial.print("[HTTP] GET...\n");
+      Serial.print("[HTTP] GET ");
+      Serial.print(url);
+      Serial.println();
       // start connection and send HTTP header
       int httpCode = http.GET();
       // httpCode will be negative on error
       if (httpCode > 0) {
         // HTTP header has been send and Server response header has been handled
-        Serial.printf("[HTTP] GET... code: %d\n", httpCode);
+        Serial.printf("GET code is : %d\n", httpCode);
 
         // file found at server
         if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
@@ -63,13 +63,13 @@ void loop() {
             Serial.println(payload);
             //breaks string int array of numbers
             int colors[3];
-            getColors(payload, colors);
+            getColors(payload, colors, ',');
             //sends message
             Wire.beginTransmission(8);
             //send each number seperately
             Wire.write(colors[0]);
             Wire.write(colors[1]);
-            Wire.write(colors[2);  
+            Wire.write(colors[2]);  
             Wire.endTransmission();
           }
         }
@@ -83,15 +83,15 @@ void loop() {
     }
   }
 
-  delay(5000);
+  delay(2000);
 }
 
 void getColors (String str, int* colors, char sep = ',') {
   String colorString;
   uint8_t prevPos = 0;
-  unit8_t pos = 0;
+  uint8_t pos = 0;
   short int i = 0;
-  while(pos != -1) {
+  while(i < 3) {
     //find position of all commas
     prevPos = pos;
     pos = str.indexOf(sep, pos == 0 ? 0 : pos + 1);
